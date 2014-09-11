@@ -1,57 +1,161 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <html>
 <head>
+	<meta charset="UTF-8">
+	<script type="text/stlylesheet" src="style/line.css"></script>
 	</head>
 	<body>
-		<svg id="line" width="800" height="300">
-			<rect width="800" height="300" style="fill:RGBA(230, 230, 230, 1);stroke:RGBA(71, 71, 71, 1);stroke-width:2;" />
-		</svg>
-		<br>
-		<svg id="bar" width="800" height="300">
-			<rect width="800" height="300" style="fill:RGBA(230, 230, 230, 1);stroke:RGBA(71, 71, 71, 1);stroke-width:2;" />
-		</svg>
+		<article></article>
+		<aside>
+			<!--
+			<button id="dataApply">데이터 적용</button>
+			-->
+			<div id="dataSection">
+			</div>
+		</aside>
 	</body>
-	<script type="text/javascript">
 
-		var colorSet = {
-			range1 : {
-				"min" : 0,
+	<script type="text/javascript" src="template/mustache.js"></script>
+	<script type="x-tmpl-mustache" id="dataInput">
+		<form>
+			<input type="text" name="key" value="{{key}}"></input>
+			<input type="text" name="value" value="{{value}}"></input>
+			<input type="text" name="comment" value="{{comment}}"></input>
+			<input type="button" value="지우기"></input>
+		</form>
+	</script>
+
+	<script type="x-tmpl-mustache" id="svgSet">
+		<svg id="{{svgId}}" width="{{svgWidth}}" height="{{svgHeight}}">
+			<rect width="{{rectWidth}}" height="{{rectHeight}}" style="fill:{{rectFill}};stroke:{{rectStroke}};stroke-width:{{rectStrokeWidth}};" />
+		</svg>
+	</script>
+	<script type="x-tmpl-mustache" id="circleSet">
+		<circle cx="{{cx}}" cy="{{cy}}" r="{{r}}" stroke="{{stroke}}" stroke-width="{{strokeWidth}}" fill="{{fill}}" data-key="{{dataKey}}" data-value="{{dataValue}}" />
+	</script>
+	<script type="x-tmpl-mustache" id="lineSet">
+		<line x1="{{x1}}" y1="{{y1}}" x2="{{x2}}" y2="{{y2}}" stroke="{{stroke}}" stroke-width="{{strokeWidth}}" data-key="{{dataKey}}" data-value="{{dataValue}}"/>
+	</script>
+
+	<script type="x-tmpl-mustache" id="textSet">
+		<text x="{{x}}" y="{{y}}" fill="{{fill}}">{{text}}</text>
+	</script>
+
+	<script type="x-tmpl-mustache" id="rectSet">
+  		<rect x="{{x}}" y="{{y}}" rx="{{rx}}" ry="{{ry}}" width="{{width}}" height="{{height}}" style="fill:{{fill}};stroke:{{stroke}};stroke-width:{{strokeWidth}};opacity:{{opacity}}" />
+	</script>
+
+	<script type="x-tmpl-mustache" id="gSet">
+		<g id="{{id}}" transform="translate({{x}},{{y}})">{{contained}}</g>
+	</script>
+
+	<script type="text/javascript">
+		var colorSet =[
+			{
 				"max" : 50,
 				"color" : "RGBA(255, 239, 163, 1)"
-			},
-			range2 : {
-				"min" : 50,
+			}, {
 				"max" : 100,
 				"color" : "RGBA(0, 161, 120, 1)"
-			},
-			range3 : {
-				"min" : 100,
+			}, {
 				"max" : 150,
 				"color" : "RGBA(255, 148, 128, 1)"
-			},
-			range4 : {
-				"min" : 150,
+			}, {
 				"max" : 200,
 				"color" : "RGBA(232, 83, 73, 1)"
+			}, {
+				"max" : Infinity,
+				"color" : "RGBA(255, 25, 61, 1)"
 			}
+		];
+
+		var testDatas = [
+			{
+				"k" : "1월",
+				"v" : 100,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "2월",
+				"v" : 140,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "3월",
+				"v" : 30,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "4월",
+				"v" : 20,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "5월",
+				"v" : 0,
+				"comment" : "aaa"
+			},
+					{
+				"k" : "6월",
+				"v" : 200,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "7월",
+				"v" : 34,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "8월",
+				"v" : 80,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "9월",
+				"v" : 10,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "10월",
+				"v" : 90,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "11월",
+				"v" : 20,
+				"comment" : "aaa"
+			},
+			{
+				"k" : "12월",
+				"v" : 400,
+				"comment" : "aaa"
+			},
+		];
+
+		var svgSetting = {
+				"svgId" : "line",
+				"svgWidth" : 600,
+				"svgHeight" : 400,
+				"rectWidth" : 600,
+				"rectHeight" : 400,
+				"rectFill" : "RGBA(230, 230, 230, 1)",
+				"rectStroke" : "RGBA(39, 40, 34, 1)",
+				"rectStrokeWidth" : 2
 		}
 
-		var rawDatas = {
-			"1월" : 250,
-			"2월" : 30,
-			"3월" : 70,
-			"4월" : 100,
-			"5월" : 140,
-			"6월" : 180,
-			"7월" : 200,
-			"8월" : 160,
-			"9월" : 100,
-			"10월" : 60,
-			"11월" : 40,
-			"12월" : 60
-		};
+		document.addEventListener("DOMContentLoaded", function(){
+			var toUsingData = dataEditing(testDatas);
+			initialBackground(svgSetting, function(){
+				renderLineGraph(toUsingData, colorSet);
+			});
+			// initialDataSet(toUsingData);
+
+			// var dataApplyButton = document.querySelector("#dataApply");
+			// dataApplyButton.addEventListener("click", dataApply);
+		}); 
 
 	</script>
-	<script type="text/javascript" src="line.js"></script>
-	<script type="text/javascript" src="bar.js"></script>
+	<script type="text/javascript" src="script/line.js"></script>
+	<script type="text/javascript" src="script/initController.js"></script>
+	<script type="text/javascript" src="script/dataController.js"></script>
 </html>
