@@ -50,7 +50,7 @@ InitialSetting.prototype = {
 		set : function(sideBar, graphFlag, dataController, infoController){
 			var material = {
 				"graphTypeButtonWrapper" : sideBar.querySelector("#GraphType"),
-				"hidingSidebarButton" : sideBar.querySelector("section>button:first-child"),
+				"hidingSidebarButton" : document.querySelector("aside>button:last-child"),
 				"reflectDataButton" : sideBar.querySelector("#dataApplyButton"),
 				"dataFormWrapper" : document.querySelector("#DataForm"),
 				"colorFormWrapper" : document.querySelector("#ColorSet"),
@@ -61,7 +61,6 @@ InitialSetting.prototype = {
 				"graphFlag" : graphFlag,
 				"dataController" : dataController
 			}
-			
 			this.fillColorSetForm(material.colorFormWrapper, customizedColor);
 			this.fillTestDataForm(material.dataFormWrapper, testDataArray);
 			this.inputCheckEvent.service(material);
