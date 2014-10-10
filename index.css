@@ -131,7 +131,9 @@ aside > button:last-child{
 }
 
 aside > button:last-child > span{
-	-webkit-transform: rotate(90deg);
+	display : block;
+	margin-top : 20px;
+	-webkit-transform: rotate(270deg);
 }
 
 aside > button:last-child:focus{

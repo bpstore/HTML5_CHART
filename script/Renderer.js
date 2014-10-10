@@ -130,8 +130,6 @@ Renderer.prototype = {
 				this.drawing.BAR.group.moving.bind(this.drawing)(this.position.space);
 				this.drawing.BAR.barSet.bind(this.drawing)(toRenderDataMap, this.position);
 			}.bind(this));
-
-			console.log("bar");
 		}
 	},
 
@@ -414,9 +412,6 @@ Renderer.prototype = {
 						target.setAttribute("data-key", key);
 						bTarget.setAttribute("data-key", key);
 						var t = "translate(" + positionMap.map[key].xPos +"px," + positionMap.map[key].yPos+ "px)";
-						console.log(bTarget);
-						console.log(target);
-						console.log(t);
 						target.style.webkitTransform = t;
 						bTarget.style.webkitTransform = t;
 						target.style.fill = cFill;

@@ -14,6 +14,7 @@ InfoController.prototype = {
 			}
 			
 		}.bind(this));
+
 		svg.addEventListener('mouseout', function(e){
 			var target = e.currentTarget;
 			var fromTarget = e.fromElement;
@@ -32,7 +33,6 @@ InfoController.prototype = {
 			}
 
 			//console.log("mouseout", target.tagName, target.getAttribute("data-key"));
-			// this.changeInfoBoxState();
 		}.bind(this));
 
 		svg.addEventListener('mousemove', function(e){
@@ -54,7 +54,7 @@ InfoController.prototype = {
 		
 	},
 
-	showInfo : function(e, infoBox){		
+	showInfo : function(e, infoBox){
 		var re = this.check.Side(e, infoBox);
 		var translate = "translate(" + re.posX + "px, " + re.posY +"px)";
 		infoBox.style.webkitTransform = translate;
@@ -70,16 +70,14 @@ InfoController.prototype = {
 				var bou = outBoundArray[i];
 				boxBoundary = this.rePosition[bou](boxBoundary, canvasBoundary, e);
 			}
-			
-			console.log(outBoundArray);
 			return {"posX" : boxBoundary["Left"], "posY" :boxBoundary["Top"]};
 		},
 
 		getBoxBoundary : function(e, box){
 			var bWidth = parseInt(box.getAttribute("width"));
 			var bHeight = parseInt(box.getAttribute("height"));
-			var calPosX = e.layerX - bWidth/2;
-			var calPosY = e.layerY - bHeight - 30;
+			var calPosX = e.offsetX - bWidth/2;
+			var calPosY = e.offsetY - bHeight - 30;
 			
 			var boundary = {
 				"Top" : calPosY,
@@ -112,7 +110,6 @@ InfoController.prototype = {
 		outOfBound : function(boxBound, canvasBound){
 			var result = [];
 			var compare = function(bou){
-				console.log(bou, boxBound[bou], canvasBound[bou]);
 				return boxBound[bou] - canvasBound[bou];
 			}
 			if(compare("Top") < 0) result.push("Top");
@@ -126,7 +123,7 @@ InfoController.prototype = {
 			Top : function(boxBoundary, canvasBoundary, e){
 				var canvasTop = canvasBoundary["Top"];
 				var boxHeight = boxBoundary["Top"] - boxBoundary["Bottom"];
-				boxBoundary["Top"] = e.layerY + 30;
+				boxBoundary["Top"] = e.offsetY + 30;
 				boxBoundary["Bottom"] = boxBoundary["Top"] + boxHeight;
 				return boxBoundary;
 			},
