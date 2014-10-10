@@ -109,7 +109,7 @@ Renderer.prototype = {
 			}
 		},
 		LINE : function(){
-			var toRenderDataMap = this.dataController.extractedData;
+			var toRenderDataMap =2 this.dataController.extractedData;
 			var positionMap = this.position.calculated;
 
 			this.drawing.LINE.group.setting(function(){

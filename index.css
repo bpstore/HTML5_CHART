@@ -33,6 +33,8 @@ article.opened{
 }
 
 article > h1 {
+	padding-top : 30px;
+	padding-bottom : 20px;
 	font-size : 60px;
 	font-family: 'Montserrat Subrayada', sans-serif;
 	color : RGBA(12, 39, 76, 1);

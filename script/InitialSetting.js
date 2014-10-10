@@ -61,6 +61,7 @@ InitialSetting.prototype = {
 				"graphFlag" : graphFlag,
 				"dataController" : dataController
 			}
+
 			this.fillColorSetForm(material.colorFormWrapper, customizedColor);
 			this.fillTestDataForm(material.dataFormWrapper, testDataArray);
 			this.inputCheckEvent.service(material);
@@ -152,14 +153,61 @@ InitialSetting.prototype = {
 
 			colorAdd : function(wrapper){
 				wrapper.addEventListener("click", function(e){
-					if(e.target.parentNode.className != "add") return;
-					var target = e.target;
 
+					var target = e.target;
+					var clsName = target.parentNode.className.toLowerCase();
+					var tgName = target.tagName.toLowerCase();
+					if(clsName != "add" || tgName != "input") return;
+					var type = target.type.toLowerCase();
+					if(type != "button") return;
+
+					var fixed = wrapper.querySelector("li.fixed");
+					var li = target.parentNode;
+					var overNumber = parseInt(li.querySelector("p.over").innerHTML);
+					var inputedNumber = li.querySelector("input[type='text']").value;
+					if(isNaN(inputedNumber)){
+						alert("숫자를 입력하세요");
+						return ;
+					}
+					if(parseInt(inputedNumber) < overNumber){
+						alert(overNumber +"보다 큰 숫자를 입력하세요");
+						return;
+					}
+					var colorValue = li.querySelector("input[type='color']").value;
+					var tpl = document.querySelector("#colorSelectSet").innerHTML;
+					var setting = {"over" : overNumber, 
+								"upper" : inputedNumber, 
+								"colorValue" : colorValue };
+					var rendered = Mustache.render(tpl, setting);
+					fixed.insertAdjacentHTML("beforebegin", rendered);
+
+					fixed.querySelector("p.over").innerHTML = inputedNumber;
+					li.querySelector("p.over").innerHTML = inputedNumber;
 				});
 			},
 
 			colorRemove : function(wrapper){
-
+				wrapper.addEventListener("click", function(e){
+					var target = e.target;
+					var clsName = target.parentNode.className.toLowerCase();
+					var tgName = target.tagName.toLowerCase();
+					if(clsName === "add" || tgName != "input") return;
+					var type = target.type.toLowerCase();
+					if(type != "button") return;
+					
+					var li = target.parentNode;
+					var curOverNumber = li.querySelector("p.over").innerHTML;
+					var nextLi = li.nextElementSibling;
+					var nextOverNumber = nextLi.querySelector("p.over");
+					console.log(nextOverNumber);
+					nextOverNumber.innerHTML = curOverNumber;
+					li.parentNode.removeChild(li);
+					
+					var fixed = wrapper.querySelector("li.fixed");
+					var add = wrapper.querySelector("li.add");
+					var fixedOverNumber = fixed.querySelector("p.over").innerHTML;
+					add.querySelector("p.over").innerHTML = fixedOverNumber;
+				});
 			},
 
 			graphTypeSelect : function(wrapper){
