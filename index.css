@@ -115,6 +115,15 @@ aside.opened{
 	left : 0px;
 }
 
+aside section.opened{
+	height : initial;
+}
+
+aside section.closed {
+	height : 10px;
+	overflow: hidden;
+}
+
 aside > button:last-child{
 	/*open sidebar button*/
 	font-family: "Dosis", sans-serif;

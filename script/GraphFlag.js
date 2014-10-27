@@ -37,7 +37,7 @@ GraphFlag.prototype = {
 		this.dataController.renderedData.max = this.dataController.getNeed.maximum(this.dataController.renderedData);
 		this.dataController.renderedData.length = this.dataController.getNeed.dataLength(this.dataController.renderedData);
 		
-		this.dataController.compared = this.getComparedData(this.dataController);
+		//this.dataController.compared = this.getComparedData(this.dataController);
 		return this.dataController;
 	},
 
@@ -85,14 +85,6 @@ GraphFlag.prototype = {
 		return dataObject;
 	}
 }
-
-
-
-
-
-
-
-
 
 
 

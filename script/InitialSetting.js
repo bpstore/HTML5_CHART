@@ -149,6 +149,23 @@ InitialSetting.prototype = {
 				this.graphTypeSelect(material.graphTypeButtonWrapper);
 				this.colorAdd(material.colorFormWrapper);
 				this.colorRemove(material.colorFormWrapper);
+				this.editOpenClose();
+			},
+
+			editOpenClose : function(){
+				var editList = document.querySelectorAll("aside>section.edit>p");
+				for (var i=0 ; i<editList.length ; i++){
+					editList[i].addEventListener("click", function(e){
+						var section = this.parentNode;
+						if(section.classList.contains("opened")){
+							section.classList.add("closed");
+							section.classList.remove("opened");
+						} else {
+							section.classList.add("opened");
+							section.classList.remove("closed");
+						}
+					});
+				}
 			},
 
 			colorAdd : function(wrapper){
