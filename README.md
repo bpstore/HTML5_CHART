@@ -1,4 +1,4 @@
-CHART
+THIS IS CHART
 ====
 NHN NEXT 2014-02-HTML5 project <br>
 
